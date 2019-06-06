@@ -2,32 +2,44 @@
   "name": "gnucash-graphql",
   "version": "0.0.0",
   "description": "GraphQL wrapper for GnuCash ledgers",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/schema.graphql dist",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/phjardas/gnucash-graphql.git"
-  },
-  "keywords": [
-    "gnucash",
-    "graphql"
+  "files": [
+    "dist",
+    "src"
   ],
-  "author": "Philipp Jardas <philipp@jardas.de>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/phjardas/gnucash-graphql/issues"
+  "peerDependencies": {
+    "graphql-tools": "^4.0.4"
   },
-  "homepage": "https://github.com/phjardas/gnucash-graphql#readme",
   "devDependencies": {
+    "@types/graphql": "^14.2.0",
+    "@types/node": "^12.0.6",
+    "@types/xml2js": "^0.4.4",
+    "graphql-tools": "^4.0.4",
     "husky": "^2.4.0",
     "lint-staged": "^8.2.0",
     "prettier": "^1.17.1",
     "typescript": "^3.5.1"
   },
+  "author": "Philipp Jardas <philipp@jardas.de>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phjardas/gnucash-graphql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phjardas/gnucash-graphql/issues"
+  },
+  "homepage": "https://github.com/phjardas/gnucash-graphql#readme",
+  "keywords": [
+    "gnucash",
+    "graphql"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -38,5 +50,8 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "xml2js": "^0.4.19"
   }
 }
