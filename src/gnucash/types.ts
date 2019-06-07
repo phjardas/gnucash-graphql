@@ -28,9 +28,11 @@ export type AccountType =
   | 'ROOT'
   | 'BANK'
   | 'EQUITY'
+  | 'CASH'
   | 'ASSET'
   | 'LIABILITY'
   | 'RECEIVABLE'
+  | 'INCOME'
   | 'EXPENSE';
 
 export interface Account extends Identifiable {
