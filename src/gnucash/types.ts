@@ -1,5 +1,5 @@
 export interface Gnucash {
-  readonly books: Book[];
+  readonly book: Book;
 }
 
 export interface Identifiable {
@@ -15,7 +15,6 @@ export interface Book extends Identifiable {
 export type CommoditySpace = string;
 
 export interface Commodity extends Identifiable {
-  readonly bookId: string;
   readonly space: CommoditySpace;
 }
 
@@ -36,7 +35,6 @@ export type AccountType =
   | 'EXPENSE';
 
 export interface Account extends Identifiable {
-  readonly bookId: string;
   readonly parentId?: string;
   readonly name: string;
   readonly type: AccountType;
@@ -45,7 +43,6 @@ export interface Account extends Identifiable {
 }
 
 export interface Transaction extends Identifiable {
-  readonly bookId: string;
   readonly currency: CommodityReference;
   readonly postedAt: string;
   readonly enteredAt: string;
@@ -61,7 +58,6 @@ export interface SplitValue {
 }
 
 export interface Split extends Identifiable {
-  readonly bookId: string;
   readonly reconciledState: SplitReconciledState;
   readonly value: SplitValue;
   readonly quantity: SplitValue;
