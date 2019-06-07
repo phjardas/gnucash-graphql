@@ -5,13 +5,15 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && cp src/schema.graphql dist",
-    "test": "jest"
+    "build": "tsc"
   },
   "files": [
     "dist",
     "src"
   ],
+  "dependencies": {
+    "xml2js": "^0.4.19"
+  },
   "peerDependencies": {
     "graphql-tools": "^4.0.4"
   },
@@ -49,8 +51,5 @@
       "prettier --write",
       "git add"
     ]
-  },
-  "dependencies": {
-    "xml2js": "^0.4.19"
   }
 }

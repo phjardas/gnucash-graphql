@@ -35,29 +35,46 @@ export const createResolver: CreateResolversFn = async (source) => {
       commodity: finder((book: Book) => book.commodities),
       account: finder((book: Book) => book.accounts),
       transaction: finder((book: Book) => book.transactions),
+      rootAccount: (book: Book) => {
+        const roots = book.accounts.filter(
+          (account) => account.type === 'ROOT'
+        );
+
+        if (roots.length !== 1) {
+          throw new Error(
+            `Expected exactly one account of type ROOT but found ${
+              roots.length
+            }`
+          );
+        }
+
+        return roots[0];
+      },
     },
     Account: {
-      book: (account: Account) => getBook(account.bookId),
-      parent: (account: Account) =>
-        account.parentId &&
-        find(getBook(account.bookId).accounts, account.parentId),
-      children: (account: Account) =>
-        getBook(account.bookId).accounts.find(
-          (account) => account.parentId === account.id
+      book: ({ bookId }: Account) => getBook(bookId),
+      parent: ({ bookId, parentId }: Account) =>
+        parentId && find(getBook(bookId).accounts, parentId),
+      children: ({ bookId, id }: Account) =>
+        getBook(bookId).accounts.filter(({ parentId }) => parentId === id),
+      commodity: ({ bookId, commodity }: Account) =>
+        getCommodity(bookId, commodity),
+      transactions: ({ bookId, id }) =>
+        getBook(bookId).transactions.filter((tx) =>
+          tx.splits.some((split) => split.accountId === id)
         ),
-      commodity: (account: Account) =>
-        getCommodity(account.bookId, account.commodity),
     },
     Commodity: {
-      book: (commodity: Commodity) => getBook(commodity.bookId),
+      book: ({ bookId }: Commodity) => getBook(bookId),
     },
     Transaction: {
-      book: (tx: Transaction) => getBook(tx.bookId),
-      currency: (tx: Transaction) => getCommodity(tx.bookId, tx.currency),
+      book: ({ bookId }: Transaction) => getBook(bookId),
+      currency: ({ bookId, currency }: Transaction) =>
+        getCommodity(bookId, currency),
     },
     Split: {
-      account: (split: Split) =>
-        find(getBook(split.bookId).accounts, split.accountId),
+      account: ({ bookId, accountId }: Split) =>
+        find(getBook(bookId).accounts, accountId),
     },
   };
 };

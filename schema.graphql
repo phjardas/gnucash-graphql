@@ -13,6 +13,7 @@ type Book implements Node {
   id: ID!
   commodities: [Commodity!]!
   commodity(id: ID!): Commodity
+  rootAccount: Account!
   accounts: [Account!]!
   account(id: ID!): Account
   transactions: [Transaction!]!
@@ -34,15 +35,18 @@ type Account implements Node {
   children: [Account!]!
   commodity: Commodity!
   commodityScu: Int!
+  transactions: [Transaction!]!
 }
 
 enum AccountType {
   ROOT
   BANK
   EQUITY
+  CASH
   ASSET
   LIABILITY
   RECEIVABLE
+  INCOME
   EXPENSE
 }
 
