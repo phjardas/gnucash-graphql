@@ -1,7 +1,69 @@
+scalar Timestamp
+
 type Query {
   books: [Book]!
+  book(id: ID!): Book
 }
 
-type Book {
+interface Node {
   id: ID!
+}
+
+type Book implements Node {
+  id: ID!
+  commodities: [Commodity!]!
+  commodity(id: ID!): Commodity
+  accounts: [Account!]!
+  account(id: ID!): Account
+  transactions: [Transaction!]!
+  transaction(id: ID!): Transaction
+}
+
+type Commodity implements Node {
+  id: ID!
+  book: Book!
+  space: String!
+}
+
+type Account implements Node {
+  id: ID!
+  book: Book!
+  name: String!
+  type: AccountType!
+  parent: Account
+  children: [Account!]!
+  commodity: Commodity!
+  commodityScu: Int!
+}
+
+enum AccountType {
+  ROOT
+  BANK
+  EQUITY
+  ASSET
+  LIABILITY
+  RECEIVABLE
+  EXPENSE
+}
+
+type Transaction implements Node {
+  id: ID!
+  book: Book!
+  currency: Commodity!
+  postedAt: Timestamp!
+  enteredAt: Timestamp!
+  description: String!
+  splits: [Split!]!
+}
+
+type SplitValue {
+  nom: Int!
+  denom: Int!
+}
+
+type Split implements Node {
+  id: ID!
+  account: Account!
+  value: SplitValue!
+  quantity: SplitValue!
 }
