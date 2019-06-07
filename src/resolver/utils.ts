@@ -8,8 +8,10 @@ export function find<E extends Identifiable>(
   return elements.find((e) => e.id === id);
 }
 
-export function finder<Source, Target extends Identifiable, Context = any>(
-  accessor: (source: Source) => Target[]
-): IFieldResolver<Source, Context, { id: string }> {
-  return (source, { id }) => find(accessor(source), id);
+export function finder<
+  Target extends Identifiable,
+  Source = any,
+  Context = any
+>(elements: Target[]): IFieldResolver<Source, Context, { id: string }> {
+  return (_, { id }) => find(elements, id);
 }
