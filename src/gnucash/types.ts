@@ -1,67 +1,67 @@
 export interface Gnucash {
-  books: IdMap<Book>;
+  readonly books: Book[];
 }
 
 export interface Identifiable {
-  id: string;
-}
-
-export interface IdMap<E extends Identifiable> {
-  [id: string]: E;
+  readonly id: string;
 }
 
 export interface Book extends Identifiable {
-  commodities: IdMap<Commodity>;
-  accounts: IdMap<Account>;
-  transactions: IdMap<Transaction>;
+  readonly commodities: Commodity[];
+  readonly accounts: Account[];
+  readonly transactions: Transaction[];
 }
 
 export type CommoditySpace = string;
 
 export interface Commodity extends Identifiable {
-  space: CommoditySpace;
+  readonly bookId: string;
+  readonly space: CommoditySpace;
 }
 
 export interface CommodityReference {
-  space: CommoditySpace;
-  id: string;
+  readonly space: CommoditySpace;
+  readonly id: string;
 }
 
 export type AccountType =
-  | "ROOT"
-  | "BANK"
-  | "EQUITY"
-  | "ASSET"
-  | "LIABILITY"
-  | "RECEIVABLE"
-  | "EXPENSE";
+  | 'ROOT'
+  | 'BANK'
+  | 'EQUITY'
+  | 'ASSET'
+  | 'LIABILITY'
+  | 'RECEIVABLE'
+  | 'EXPENSE';
 
 export interface Account extends Identifiable {
-  parentId?: string;
-  name: string;
-  type: AccountType;
-  commodity: CommodityReference;
-  commodityScu: number;
+  readonly bookId: string;
+  readonly parentId?: string;
+  readonly name: string;
+  readonly type: AccountType;
+  readonly commodity: CommodityReference;
+  readonly commodityScu: number;
 }
 
 export interface Transaction extends Identifiable {
-  currency: CommodityReference;
-  postedAt: string;
-  enteredAt: string;
-  description: string;
-  splits: Split[];
+  readonly bookId: string;
+  readonly currency: CommodityReference;
+  readonly postedAt: string;
+  readonly enteredAt: string;
+  readonly description: string;
+  readonly splits: Split[];
 }
 
 export type SplitReconciledState = string;
 
 export interface SplitValue {
-  nom: number;
-  denom: number;
+  readonly nom: number;
+  readonly denom: number;
 }
 
 export interface Split extends Identifiable {
-  reconciledState: SplitReconciledState;
-  value: SplitValue;
-  quantity: SplitValue;
-  accountId: string;
+  readonly bookId: string;
+  readonly reconciledState: SplitReconciledState;
+  readonly value: SplitValue;
+  readonly quantity: SplitValue;
+  readonly accountId: string;
 }
