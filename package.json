@@ -1,6 +1,6 @@
 {
   "name": "gnucash-graphql",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "GraphQL wrapper for GnuCash ledgers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
