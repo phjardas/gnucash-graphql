@@ -1,5 +1,5 @@
+import { Identifiable } from 'gnucash';
 import { IFieldResolver } from 'graphql-tools';
-import { Identifiable } from '../gnucash/types';
 
 export function find<E extends Identifiable>(
   elements: E[],

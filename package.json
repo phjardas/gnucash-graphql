@@ -5,14 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "rm -rf dist && npm run build"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
   "dependencies": {
-    "xml2js": "^0.4.19"
+    "gnucash": "^0.0.2"
   },
   "peerDependencies": {
     "graphql-tools": "^4.0.4"
