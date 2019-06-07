@@ -1,11 +1,12 @@
-import { IResolvers } from 'graphql-tools';
-import { GnucashSource, parseGnucash } from '../gnucash';
 import {
   Account,
   CommodityReference,
+  GnucashSource,
+  parseGnucash,
   Split,
   Transaction,
-} from '../gnucash/types';
+} from 'gnucash';
+import { IResolvers } from 'graphql-tools';
 import { find, finder } from './utils';
 
 export type CreateResolversFn = (source: GnucashSource) => Promise<IResolvers>;
